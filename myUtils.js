@@ -100,7 +100,7 @@ export function download(fliePath, fileName) {
   eleLink.click() // 触发点击事件
   document.body.removeChild(eleLink)
 }
-var my_utils = {
+let my_utils = {
   toTree,
   toOne,
   noRepeat,
