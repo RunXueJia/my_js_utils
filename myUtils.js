@@ -86,15 +86,27 @@ export const throttle = (fn, delay = 500) => {
     }
   }
 }
-export  function replace (text, oldVal, newWord, isAll = true) {
+export function replace(text, oldVal, newWord, isAll = true) {
   //替换字符串
   return text.replace(new RegExp(oldVal, isAll ? 'g' : ''), newWord)
 }
-export default {
+export function download(fliePath, fileName) {
+  const eleLink = document.createElement('a') // 新建A标签
+  eleLink.href = fliePath // 下载的路径
+  eleLink.target = '_blank'
+  eleLink.download = `${fileName}` // 设置下载的属性，可以为空
+  eleLink.style.display = 'none'
+  document.body.appendChild(eleLink)
+  eleLink.click() // 触发点击事件
+  document.body.removeChild(eleLink)
+}
+var my_utils = {
   toTree,
   toOne,
   noRepeat,
   debounce,
   throttle,
   replace,
+  download,
 }
+export default my_utils

@@ -9,78 +9,11 @@
 </head>
 
 <body>
-
+      <button>下载</button>
 </body>
 
 </html>
 <!-- <script src="./tree.js"></script> -->
 <script>
-  function toTree ( //一维数组转树形
-    arr,
-    pid = 0,
-    idKey = 'id',
-    pidKey = 'pid',
-    childKey = 'children'
-  ) {
-    const root = arr.find((i) => i[idKey] == pid)
-    const arr2 = []
-    arr
-      .filter((i) => i[idKey] !== pid)
-      .forEach((item) => {
-        if (item[pidKey] == pid) {
-          const arr3 = toTree(arr, item[idKey], idKey, pidKey)
-          if (arr3.length) item[childKey] = arr3
-          root
-            ? root[childKey]
-              ? root[childKey].push(item)
-              : (root[childKey] = [item])
-            : arr2.push(item)
-        }
-      })
-    return root ? root : arr2
-  }
-  const toOne = (
-    //树形数组转一维
-    val,
-    childrenKey = 'children',
-    idKey = 'id',
-    saveChild = false
-  ) => {
-    const arr2 = []
-    let arr = null
-    val instanceof Array ? arr = val : arr = [val]
-    arr.forEach((item) => {
-      if (item[childrenKey]) {
-        arr2.push(...toOne(item[childrenKey], childrenKey, idKey, saveChild))
-      }
-      const newItem = { ...item }
-      saveChild ? arr2.push(newItem) : delete newItem[childrenKey] && arr2.push(newItem)
-    })
-    return arr2.sort((a, b) => {
-      return a[idKey] - b[idKey]
-    })
-  }
 
-  const arr = [
-    { id: 19 },
-    { id: 1, pid: 19 },
-    { id: 2, pid: 1 },
-    { id: 3, pid: 19 },
-    { id: 4, pid: 1 },
-    { id: 5, pid: 2 },
-    { id: 6, pid: 19 },
-    { id: 7, pid: 3 },
-    { id: 8, pid: 1 },
-    { id: 9, pid: 4 },
-  ]
-  let arr1 = toTree(arr, 19)
-  console.log(arr1);
-  let arr2 = toOne(arr1)
-  console.log(arr2);
-  function replace (text, oldVal, newWord, isAll = true) {
-    return text.replace(new RegExp(oldVal, isAll ? 'g' : ''), newWord)
-  }
-  let text = '123456789676767'
-  let text1 = replace(text, 7, 9,false)
-  console.log(text1);
 </script>
