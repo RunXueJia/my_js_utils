@@ -91,6 +91,7 @@ export function replace(text, oldVal, newWord, isAll = true) {
   return text.replace(new RegExp(oldVal, isAll ? 'g' : ''), newWord)
 }
 export function download(fliePath, fileName) {
+  //下载方法
   const eleLink = document.createElement('a') // 新建A标签
   eleLink.href = fliePath // 下载的路径
   eleLink.target = '_blank'
@@ -100,6 +101,17 @@ export function download(fliePath, fileName) {
   eleLink.click() // 触发点击事件
   document.body.removeChild(eleLink)
 }
+export function copyInto(val) {
+  //一键复制到粘贴板
+  const input = document.createElement('textarea')
+  input.style.opacity = '0'
+  input.style.position = 'absolute'
+  document.body.appendChild(input)
+  input.value = val
+  input.select()
+  document.execCommand('copy')
+  document.body.removeChild(input)
+}
 let my_utils = {
   toTree,
   toOne,
@@ -108,5 +120,6 @@ let my_utils = {
   throttle,
   replace,
   download,
+  copyInto
 }
 export default my_utils
