@@ -9,11 +9,44 @@
 </head>
 
 <body>
-      <button>下载</button>
+  <button>下载</button>
 </body>
 
 </html>
 <!-- <script src="./tree.js"></script> -->
 <script>
-
+  function getTime (val) {
+    function getWeekDay (val) {
+      week = [
+        { label: 1, value: '一' },
+        { label: 2, value: '二' },
+        { label: 3, value: '三' },
+        { label: 4, value: '四' },
+        { label: 5, value: '五' },
+        { label: 6, value: '六' },
+        { label: 0, value: '日' },
+      ]
+      return week.find((item) => item.label == val).value
+    }
+    let now = val ? new Date(val) : new Date()
+    let year = now.getFullYear() //得到年份
+    let month =
+      now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1 //得到月份
+    let day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate() //得到日期
+    let week = now.getDay() //得到周几
+    let hour = now.getHours() < 10 ? '0' + now.getHours() : now.getHours() //得到小时数
+    let minute = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes() //得到分钟数
+    let second = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds() //得到秒数
+    return {
+      year,
+      month,
+      day,
+      week,
+      weekCn: getWeekDay(week),
+      hour,
+      minute,
+      second
+    }
+  }
+  console.log(getTime());
 </script>
