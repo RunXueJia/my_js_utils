@@ -1,27 +1,28 @@
 //一维数组转树形
 export function toTree(
   arr,
-  pid = 0,
+  pid = '#',
   idKey = 'id',
   pidKey = 'pid',
   childKey = 'children'
 ) {
-  const root = arr.find((i) => i[idKey] == pid)
-  const arr2 = []
-  arr
-    .filter((i) => i[idKey] !== pid)
-    .forEach((item) => {
-      if (item[pidKey] == pid) {
-        const arr3 = toTree(arr, item[idKey], idKey, pidKey)
-        if (arr3.length) item[childKey] = arr3
-        root
-          ? root[childKey]
-            ? root[childKey].push(item)
-            : (root[childKey] = [item])
-          : arr2.push(item)
-      }
-    })
-  return root ? root : arr2
+  let root = arr.find((item) => item[idKey] == pid)
+  let newArr = []
+  arr.forEach((item) => {
+    let parent = arr.find((i) => i[idKey] == item[pidKey])
+    if (parent) {
+      parent[childKey]
+        ? parent[childKey].push(item)
+        : (parent[childKey] = [item])
+    } else {
+      root
+        ? root[childKey]
+          ? root[childKey].push(item)
+          : (root[childKey] = [item])
+        : newArr.push(item)
+    }
+  })
+  return root ? root : newArr
 }
 //树形数组转一维
 export const toOne = (
