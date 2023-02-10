@@ -180,6 +180,30 @@ export function getTime(val) {
     second,
   }
 }
+// 创建克隆的方法
+export function clone(val) {
+  function getType(target) {
+    return Object.prototype.toString.call(target).slice(8, -1)
+  }
+  function cloneUtil(target) {
+    let result
+    if (getType(target) === 'Object') {
+      result = {}
+    } else if (getType(target) === 'Array') {
+      result = []
+    } else result = target
+    for (let i in target) {
+      let item = target[i]
+      if (getType(item) === 'Object' || getType(item) === 'Array') {
+        result[i] = cloneUtil(item)
+      } else {
+        result[i] = item
+      }
+    }
+    return result
+  }
+  return cloneUtil(val)
+}
 let my_utils = {
   toTree,
   toOne,
