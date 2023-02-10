@@ -214,5 +214,6 @@ let my_utils = {
   download,
   copyInto,
   getTime,
+  clone,
 }
 export default my_utils
