@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div @click="copy">12445</div>
 </template>
 <script>
 export default {
@@ -22,7 +22,14 @@ export default {
   watch: {
   },
   methods: {
-
+    copy(
+      
+    ) {
+      this.$utils.copyInto(`
+         123
+         456
+      `)
+    }
   },
 }
 </script>

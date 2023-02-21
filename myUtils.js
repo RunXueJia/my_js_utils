@@ -68,7 +68,7 @@ export const debounce = (fn, delay = 500) => {
     let _arguments = arguments
     clearTimeout(timer)
     timer = setTimeout(function () {
-      console.log('执行器触发')
+      // console.log('执行器触发')
       fn.apply(_this, _arguments)
     }, delay)
   }
@@ -139,7 +139,10 @@ export function download(fliePath, fileName, isImg = false) {
 export function copyInto(val) {
   const input = document.createElement('textarea')
   input.style.opacity = '0'
-  input.style.position = 'absolute'
+  input.style.position = 'fixed'
+  input.style.top = '0'
+  input.style.left = '0'
+  input.style['z-index'] = '-999'
   document.body.appendChild(input)
   input.value = val
   input.select()
@@ -180,7 +183,7 @@ export function getTime(val) {
     second,
   }
 }
-// 创建克隆的方法
+//深度克隆
 export function clone(val) {
   function getType(target) {
     return Object.prototype.toString.call(target).slice(8, -1)
