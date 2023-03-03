@@ -88,6 +88,34 @@ export const throttle = (fn, delay = 500) => {
     }
   }
 }
+//指定元素全屏 //参数为标签
+export const fullScreen = {
+  full: (el) => {
+    let fullFn =
+      el.requestFullscreen ||
+      el.webkitRequestFullscreen ||
+      el.mozRequestFullScreen ||
+      el.msRequestFullscreen
+    if (fullFn) return fullFn.call(el)
+    if (window.ActiveXObject) {
+      var ws = new ActiveXObject('WScript.Shell')
+      ws && ws.SendKeys('{F11}')
+    }
+  },
+  exit: () => {
+    var efs =
+      document.exitFullscreen ||
+      document.webkitExitFullscreen ||
+      document.mozCancelFullScreen ||
+      document.msExitFullscreen
+    if (efs && document.fullscreenElement) {
+      efs.call(document)
+    } else if (window.ActiveXObject) {
+      var ws = new ActiveXObject('WScript.Shell')
+      ws && ws.SendKeys('{F11}')
+    }
+  },
+}
 //替换字符串
 export function replace(text, oldVal, newWord, isAll = true) {
   return text.replace(new RegExp(oldVal, isAll ? 'g' : ''), newWord)
@@ -213,6 +241,7 @@ let my_utils = {
   noRepeat,
   debounce,
   throttle,
+  fullScreen,
   replace,
   download,
   copyInto,

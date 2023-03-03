@@ -1,5 +1,10 @@
 <template>
-  <div @click="copy">12445</div>
+  <div> 
+      <div @click="full">全屏</div>
+      <div ref="fulDiv" style="width: 100px; height: 100px; background-color: #eee;">
+        <div @click="exit">退出</div>
+      </div>
+  </div>
 </template>
 <script>
 export default {
@@ -9,29 +14,23 @@ export default {
     }
   },
   created () {
-    console.log(this.$utils);
   },
   mounted () {
-    const obj = { id: 1, name: '张飞' }
-    const obj2 = this.$utils.clone(obj)
-    obj2.name = '关羽'
-    console.log(obj, obj2);
   },
   computed: {
   },
   watch: {
   },
   methods: {
-    copy(
-      
-    ) {
-      this.$utils.copyInto(`
-         123
-         456
-      `)
+    full(){
+      this.$utils.fullScreen.full(this.$refs.fulDiv)
+    },
+    exit(){
+      this.$utils.fullScreen.exit()
     }
   },
 }
 </script>
 <style lang="scss" scoped>
+
 </style>
