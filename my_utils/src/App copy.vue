@@ -32,4 +32,7 @@ export default {
 div {
   color: #000;
 }
+i {
+  color: #000;
+}
 </style>

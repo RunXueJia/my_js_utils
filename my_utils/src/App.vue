@@ -51,4 +51,7 @@ export default {
 i {
   color: black;
 }
+div {
+  color: black;
+}
 </style>
