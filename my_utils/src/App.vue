@@ -8,7 +8,6 @@
         height: 100px;
         background-color: #eee;
         position: relative;
-        transition: all 0.5s;
       "
     >
       <!-- <div class="son"></div> -->
