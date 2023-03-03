@@ -4,34 +4,32 @@
 <script>
 export default {
   name: 'App',
-  data () {
-    return {
-    }
+  data() {
+    return {}
   },
-  created () {
-    console.log(this.$utils);
+  created() {
+    console.log(this.$utils)
   },
-  mounted () {
+  mounted() {
     const obj = { id: 1, name: '张飞' }
     const obj2 = this.$utils.clone(obj)
     obj2.name = '关羽'
-    console.log(obj, obj2);
+    console.log(obj, obj2)
   },
-  computed: {
-  },
-  watch: {
-  },
+  computed: {},
+  watch: {},
   methods: {
-    copy(
-      
-    ) {
+    copy() {
       this.$utils.copyInto(`
          123
          456
       `)
-    }
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
+div {
+  color: #000;
+}
 </style>
