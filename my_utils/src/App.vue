@@ -44,5 +44,8 @@ export default {
     box-sizing: border-box;
     transition: all 0.5s;
   }
+  div {
+    color: black;
+  }
 </style>
 
