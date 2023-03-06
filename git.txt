@@ -1,0 +1,36 @@
+初始化仓库:	 	git init
+查看文件状态: 	git status / git status -s		(short)
+添加到暂存区:  	git add 文件1    	
+添加多个:		git add .
+提交到git仓库:	git commit -m '描述日志信息' 	(message)
+提过暂存区提交:	git commit -a -m  '描述日志信息'   (tracked files)
+帮助信息:		git help config   /   git config -h
+
+-------------------------忽略文件  .gitignore
+1)#开头  注释            *.html
+2)/结尾   目录
+3)/开头   防止递归
+4)!开头   取反
+5) glob模式 (简化正则)  * [abc] ?  ** [0-9]
+
+--------------------------反悔操作
+1)仓库文件覆盖工作区: 	git checkout -- index.html      谨慎操作
+2)回退暂存区文件:		git  reset HEAD 文件名  /  git reset 文件名
+回退多个--加点		git  reset  .
+3)移除文件:   ---删完需要再提交commit
+	a)同时移出:		git rm -f index.js		 (remove)
+	b)git仓移出:		git rm -- cached index.js 
+4)版本回退:	   
+	a)查看历史:		git log -2 --pretty=oneline    (q返回)
+	     自定义哈希值	git log -2 --pretty=format:"%h %an %ar %s"
+	     ***常用		git reflog  
+	b)回退版本:		git reset --hard  <CommitID>
+==================
+==================
+git remote add  origin  <url>   建立远程仓库联系
+git push -u origin "master" (第一次)
+git pull /  push
+git clone 远程仓库地址     
+git  remote -v  【查看有没有跟远程仓库建立联系】
+git remote remove origin 【删除已经建立的联系】
+

@@ -11,10 +11,10 @@ export default {
     console.log(this.$utils)
   },
   mounted() {
-    const obj = { id: 1, name: '张飞' }
-    const obj2 = this.$utils.clone(obj)
-    obj2.name = '关羽'
-    console.log(obj, obj2)
+    // const obj = { id: 1, name: '张飞' }
+    // const obj2 = this.$utils.clone(obj)
+    // obj2.name = '关羽'
+    // console.log(obj, obj2)
   },
   computed: {},
   watch: {},
@@ -25,6 +25,11 @@ export default {
          456
       `)
     },
+     myFunction(){
+	var str = "The rain in SPAIN stays mainly in the plain"; 
+	var n=str.match(/ain/gi);
+	return n
+}
   },
 }
 </script>
