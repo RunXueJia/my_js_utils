@@ -180,7 +180,7 @@ export function copyInto(val) {
 //时间
 export function getTime(val) {
   function bu0(val){
-     return val*1 <10 ? '0'+val :val
+     return val*1 <10 ? '0'+val :val.toString()
   }
   function getWeekDay(val) {
     week = [
@@ -195,7 +195,7 @@ export function getTime(val) {
     return week.find((item) => item.label == val).value
   }
   let now = val ? new Date(val) : new Date()
-  let year = now.getFullYear() //得到年份
+  let year = now.getFullYear().toString() //得到年份
   let month = bu0(now.getMonth()+1) //得到月份
   let day =bu0(now.getDate())   //得到日期
   let week =bu0(now.getDay())  //得到周几
@@ -209,6 +209,9 @@ export function getTime(val) {
     week,
     weekCn: getWeekDay(week),
     hour,
+    hour12 : hour>12?bu0(hour -12) :hour,
+    AP:hour>12? 'PM':'AM',
+    APCN:hour>12? '下午':'上午',
     minute,
     second,
   }
