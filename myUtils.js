@@ -180,7 +180,7 @@ export function copyInto(val) {
 //时间
 export function getTime(val) {
   function bu0(val){
-     return val*1 <0 ? '0'+val :val
+     return val*1 <10 ? '0'+val :val
   }
   function getWeekDay(val) {
     week = [
