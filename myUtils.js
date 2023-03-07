@@ -179,6 +179,9 @@ export function copyInto(val) {
 }
 //时间
 export function getTime(val) {
+  function bu0(val){
+     return val*1 <0 ? '0'+val :val
+  }
   function getWeekDay(val) {
     week = [
       { label: 1, value: '一' },
@@ -193,13 +196,12 @@ export function getTime(val) {
   }
   let now = val ? new Date(val) : new Date()
   let year = now.getFullYear() //得到年份
-  let month =
-    now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1 //得到月份
-  let day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate() //得到日期
-  let week = now.getDay() //得到周几
-  let hour = now.getHours() < 10 ? '0' + now.getHours() : now.getHours() //得到小时数
-  let minute = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes() //得到分钟数
-  let second = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds() //得到秒数
+  let month = bu0(now.getMonth()+1) //得到月份
+  let day =bu0(now.getDate())   //得到日期
+  let week =bu0(now.getDay())  //得到周几
+  let hour =bu0(now.getHours())  //得到小时数
+  let minute =bu0(now.getMinutes())  //得到分钟数
+  let second =bu0(now.getSeconds())  //得到秒数
   return {
     year,
     month,

@@ -16,33 +16,38 @@
   </div>
 </template>
 <script>
+import {debounce} from '../../myUtils'
 export default {
   name: "App",
   data() {
     return {};
   },
-  created() {},
+  created() {
+     console.log(this.$utils)
+  },
   mounted() {
+    const time = new Date()
+    console.log(this.$utils.getTime(time));
     //  const arr =[ { id: 1, name: '张飞' },{ id:2, name: '关羽' }]
     // const arr2 = this.$utils.clone(arr)
     // arr2[1].name = '关羽1'
     // console.log(arr, arr2)
-    console.log(this.myFunction()[0]);
+    // console.log(this.myFunction()[0]);
   },
   computed: {},
   watch: {},
   methods: {
-    full() {
-      this.$utils.fullScreen.full(this.$refs.fulDiv);
-    },
+    full: debounce(function(){
+      this.$utils.fullScreen.full(this.$refs.fulDiv)
+    })  ,
     exit() {
       this.$utils.fullScreen.exit();
     },
-    myFunction() {
-      var str = "The rain in SPAIN stays mainly in the plain";
-      var n = str.match(/ain/);
-      return n;
-    },
+    // myFunction() {
+    //   var str = "The rain in SPAIN stays mainly in the plain";
+    //   var n = str.match(/ain/);
+    //   return n;
+    // },
   },
 };
 </script>
