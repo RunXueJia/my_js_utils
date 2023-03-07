@@ -210,8 +210,8 @@ export function getTime(val) {
     weekCn: getWeekDay(week),
     hour,
     hour12 : hour>12?bu0(hour -12) :hour,
-    AP:hour>12? 'PM':'AM',
-    APCN:hour>12? '下午':'上午',
+    AP:hour>=12? 'PM':'AM',
+    APCN:hour>=12? '下午':'上午',
     minute,
     second,
   }

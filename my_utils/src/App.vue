@@ -26,13 +26,8 @@ export default {
      console.log(this.$utils)
   },
   mounted() {
-    // const time = new Date()
-    console.log(this.$utils.getTime('Mon, 06 Mar 2023 10:51:11 GMT'));
-    //  const arr =[ { id: 1, name: '张飞' },{ id:2, name: '关羽' }]
-    // const arr2 = this.$utils.clone(arr)
-    // arr2[1].name = '关羽1'
-    // console.log(arr, arr2)
-    // console.log(this.myFunction()[0]);
+    const dif = new Date().getTimezoneOffset()*60*1000
+    console.log(this.$utils.getTime(+new Date()+dif));
   },
   computed: {},
   watch: {},
