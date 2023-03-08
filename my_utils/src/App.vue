@@ -13,10 +13,11 @@
       <div class="son"></div>
       <div style="position: absolute; left: 2px" @click="exit">退出</div>
     </div>
+    <div @click="alert">dianji</div>
   </div>
 </template>
 <script>
-import {debounce} from '../../myUtils'
+import {debounce,throttle} from '../../myUtils'
 export default {
   name: "App",
   data() {
@@ -38,6 +39,9 @@ export default {
     exit() {
       this.$utils.fullScreen.exit();
     },
+    alert:throttle(function(){
+      this.$utils.alertText('11111111111111')
+    },1500)
     // myFunction() {
     //   var str = "The rain in SPAIN stays mainly in the plain";
     //   var n = str.match(/ain/);
@@ -57,11 +61,16 @@ export default {
   border: 2px solid red;
   box-sizing: border-box;
   transition: all 0.5s;
+  transform: translateY();
 }
 i {
   color: black;
 }
 div {
   color: black;
+ 
+}
+@keyframes aaa {
+  
 }
 </style>
