@@ -1,4 +1,4 @@
-# my_utils
+# vue3demo
 
 ## Project setup
 ```

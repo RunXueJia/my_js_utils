@@ -74,7 +74,7 @@ export const debounce = (fn, delay = 500) => {
   };
 };
 //节流
-export const throttle = (fn, delay = 500) => {
+export const throttle = (fn,tipsText = '', delay = 500) => {
   let flag = false;
   return function () {
     if (!flag) {
@@ -85,6 +85,10 @@ export const throttle = (fn, delay = 500) => {
       setTimeout(() => {
         flag = false;
       }, delay);
+    }else{
+      if(tipsText.trim()){
+        alertText(tipsText,delay)
+      }
     }
   };
 };
@@ -242,10 +246,8 @@ export function clone(val) {
 }
 //黑色弱弹窗提醒
 export function alertText(text, delay = 1500) {
-  // $(".alertText").remove();
-  const alertText = document.querySelectorAll(".alertText");
+  const alertText = document.getElementsByClassName("alertText");
   if (alertText.length) alertText.forEach((i) => document.body.removeChild(i));
-  clearTimeout(this.aletrTimer);
   let html = `
         <span>${text}</span>
         `;
@@ -256,7 +258,7 @@ export function alertText(text, delay = 1500) {
       width: auto !important;
       padding: 5px 10px !important;
       position:fixed;
-      top:40%;
+      top:50%;
       left:50%;
       line-height:32px;
       transform:translate(-50%,-51%);
@@ -307,7 +309,7 @@ export function alertText(text, delay = 1500) {
     }
   );
   document.body.appendChild(div);
-  this.aletrTimer = setTimeout(() => {
+  setTimeout(() => {
     document.body.removeChild(div);
   }, delay);
 }
