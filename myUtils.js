@@ -285,7 +285,7 @@ export function alertText(text, delay = 1500) {
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9
+        opacity: 0.8
       },
       {
         transform: "translate(-50%,-50%)",
