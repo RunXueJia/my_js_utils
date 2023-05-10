@@ -6,10 +6,10 @@ export function toTree(
   pidKey = "pid",
   childKey = "children"
 ) {
-  let root = arr.find((item) => item[idKey] == pid);
+  let root = arr.find(item => item[idKey] == pid);
   let newArr = [];
-  arr.forEach((item) => {
-    let parent = arr.find((i) => i[idKey] == item[pidKey]);
+  arr.forEach(item => {
+    let parent = arr.find(i => i[idKey] == item[pidKey]);
     if (parent) {
       parent[childKey]
         ? parent[childKey].push(item)
@@ -34,7 +34,7 @@ export const toOne = (
   const arr2 = [];
   let arr = null;
   val instanceof Array ? (arr = val) : (arr = [val]);
-  arr.forEach((item) => {
+  arr.forEach(item => {
     if (item[childrenKey]) {
       arr2.push(...toOne(item[childrenKey], childrenKey, idKey, saveChild));
     }
@@ -50,7 +50,7 @@ export const toOne = (
 //用于数组去重 (若为元素为对象需要传入唯一值的key)
 export function noRepeat(arr, key = false) {
   let obj = {};
-  let newarr = arr.reduce(function (sum, current) {
+  let newarr = arr.reduce(function(sum, current) {
     if (!key) {
       obj[current] ? "" : (obj[current] = true && sum.push(current));
     } else {
@@ -63,20 +63,20 @@ export function noRepeat(arr, key = false) {
 //防抖
 export const debounce = (fn, delay = 500) => {
   let timer = null;
-  return function () {
+  return function() {
     let _this = this;
     let _arguments = arguments;
     clearTimeout(timer);
-    timer = setTimeout(function () {
+    timer = setTimeout(function() {
       // console.log('执行器触发')
       fn.apply(_this, _arguments);
     }, delay);
   };
 };
 //节流
-export const throttle = (fn,tipsText = '', delay = 500) => {
+export const throttle = (fn, tipsText = "", delay = 500) => {
   let flag = false;
-  return function () {
+  return function() {
     if (!flag) {
       let _this = this;
       let _arguments = arguments;
@@ -85,16 +85,16 @@ export const throttle = (fn,tipsText = '', delay = 500) => {
       setTimeout(() => {
         flag = false;
       }, delay);
-    }else{
-      if(tipsText.trim()){
-        alertText(tipsText,delay)
+    } else {
+      if (tipsText.trim()) {
+        alertText(tipsText, delay);
       }
     }
   };
 };
 //指定元素全屏 //参数为标签
 export const fullScreen = {
-  full: (el) => {
+  full: el => {
     let fullFn =
       el.requestFullscreen ||
       el.webkitRequestFullscreen ||
@@ -118,7 +118,7 @@ export const fullScreen = {
       var ws = new ActiveXObject("WScript.Shell");
       ws && ws.SendKeys("{F11}");
     }
-  },
+  }
 };
 //替换字符串
 export function replace(text, oldVal, newWord, isAll = true) {
@@ -145,7 +145,7 @@ export function download(fliePath, fileName, isImg = false) {
       // let bmp = /(.+(?=[.bmp]$))/
       // let apng  = /(.+(?=[.apng ]$))/
 
-      canvas.toBlob((blob) => {
+      canvas.toBlob(blob => {
         let href = URL.createObjectURL(blob);
         let Link = document.createElement("a");
         Link.download = fileName + ".png";
@@ -194,9 +194,9 @@ export function getTime(val) {
       { label: 4, value: "四" },
       { label: 5, value: "五" },
       { label: 6, value: "六" },
-      { label: 0, value: "日" },
+      { label: 0, value: "日" }
     ];
-    return week.find((item) => item.label == val).value;
+    return week.find(item => item.label == val).value;
   }
   let now = val ? new Date(val) : new Date();
   let year = now.getFullYear().toString(); //得到年份
@@ -217,7 +217,7 @@ export function getTime(val) {
     AP: hour >= 12 ? "PM" : "AM",
     APCN: hour >= 12 ? "下午" : "上午",
     minute,
-    second,
+    second
   };
 }
 //深度克隆
@@ -247,7 +247,8 @@ export function clone(val) {
 //黑色弱弹窗提醒
 export function alertText(text, delay = 1500) {
   const alertText = document.getElementsByClassName("alertText");
-  if (alertText.length) alertText.forEach((i) => document.body.removeChild(i));
+  if (alertText.length)
+    [...alertText].forEach(i => document.body.removeChild(i));
   let html = `
         <span>${text}</span>
         `;
@@ -272,32 +273,32 @@ export function alertText(text, delay = 1500) {
     [
       {
         transform: "translate(-50%,-70%)",
-        opacity: 1,
+        opacity: 1
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9,
+        opacity: 0.9
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9,
+        opacity: 0.9
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9,
+        opacity: 0.9
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9,
+        opacity: 0.7
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9,
+        opacity: 0.6
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.5,
-      },
+        opacity: 0.5
+      }
     ],
     {
       duration: 1500,
@@ -305,12 +306,14 @@ export function alertText(text, delay = 1500) {
       delay: 0,
       iterations: "1",
       direction: "alternate",
-      fill: "forwards",
+      fill: "forwards"
     }
   );
   document.body.appendChild(div);
   setTimeout(() => {
-    document.body.removeChild(div);
+    try {
+      document.body.removeChild(div);
+    } catch (error) {}
   }, delay);
 }
 let my_utils = {
@@ -325,6 +328,6 @@ let my_utils = {
   copyInto,
   getTime,
   clone,
-  alertText,
+  alertText
 };
 export default my_utils;
