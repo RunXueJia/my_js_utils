@@ -1,5 +1,9 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+    <div>
+        关于
+    </div>
 </template>
+<script setup>
+import { ref , reactive, toRefs , computed, onMounted} from 'vue';
+
+</script>
