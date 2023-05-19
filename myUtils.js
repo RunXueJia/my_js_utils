@@ -220,6 +220,23 @@ export function getTime(val) {
     second,
   };
 }
+//毫秒数转换成 时分秒
+export function formatTime(milliseconds,zero = false) {
+  function bu0(n) {
+    return n < 10 ? "0" + n : n;
+  }
+  let seconds = Math.floor(milliseconds / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+  let days = Math.floor(hours / 24);
+  let time = {
+    days:zero? bu0(days) : days,
+    hours:zero? bu0(hours % 24) : hours % 24,
+    minutes:zero? bu0(minutes % 60) :minutes % 60,
+    seconds:zero? bu0(seconds % 60) :seconds % 60
+  };
+  return time;
+}
 //深度克隆
 export function clone(val) {
   function getType(target) {
@@ -329,6 +346,7 @@ export function randomString(len, chars) {
   }
   return pwd;
 }
+
 let my_utils = {
   toTree,
   toOne,
@@ -340,6 +358,7 @@ let my_utils = {
   download,
   copyInto,
   getTime,
+  formatTime,
   clone,
   alertText,
   randomString,
