@@ -221,7 +221,7 @@ export function getTime(val) {
   };
 }
 //毫秒数转换成 时分秒
-export function formatTime(milliseconds,zero = false) {
+export function formatTime(milliseconds, zero = false) {
   function bu0(n) {
     return n < 10 ? "0" + n : n;
   }
@@ -230,10 +230,10 @@ export function formatTime(milliseconds,zero = false) {
   let hours = Math.floor(minutes / 60);
   let days = Math.floor(hours / 24);
   let time = {
-    days:zero? bu0(days) : days,
-    hours:zero? bu0(hours % 24) : hours % 24,
-    minutes:zero? bu0(minutes % 60) :minutes % 60,
-    seconds:zero? bu0(seconds % 60) :seconds % 60
+    days: zero ? bu0(days) : days,
+    hours: zero ? bu0(hours % 24) : hours % 24,
+    minutes: zero ? bu0(minutes % 60) : minutes % 60,
+    seconds: zero ? bu0(seconds % 60) : seconds % 60,
   };
   return time;
 }
@@ -346,7 +346,12 @@ export function randomString(len, chars) {
   }
   return pwd;
 }
-
+//检测一段字符串中指定字符出现次数
+export function countOccurrences(str, subStr) {
+  const regex = new RegExp(subStr, "g");
+  const matches = str.match(regex);
+  return matches ? matches.length : 0;
+}
 let my_utils = {
   toTree,
   toOne,
@@ -362,5 +367,6 @@ let my_utils = {
   clone,
   alertText,
   randomString,
+  countOccurrences
 };
 export default my_utils;
