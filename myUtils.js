@@ -74,7 +74,7 @@ export const debounce = (fn, delay = 500) => {
   };
 };
 //节流
-export const throttle = (fn, tipsText = "", delay = 500) => {
+export const throttle = (fn, delay = 500,tipsText = "") => {
   let flag = false;
   return function () {
     if (!flag) {
@@ -102,12 +102,12 @@ export const fullScreen = {
       el.msRequestFullscreen;
     if (fullFn) return fullFn.call(el);
     if (window.ActiveXObject) {
-      var ws = new ActiveXObject("WScript.Shell");
+      let ws = new ActiveXObject("WScript.Shell");
       ws && ws.SendKeys("{F11}");
     }
   },
   exit: () => {
-    var efs =
+    let efs =
       document.exitFullscreen ||
       document.webkitExitFullscreen ||
       document.mozCancelFullScreen ||
@@ -115,7 +115,7 @@ export const fullScreen = {
     if (efs && document.fullscreenElement) {
       efs.call(document);
     } else if (window.ActiveXObject) {
-      var ws = new ActiveXObject("WScript.Shell");
+      let ws = new ActiveXObject("WScript.Shell");
       ws && ws.SendKeys("{F11}");
     }
   },
@@ -125,47 +125,14 @@ export function replace(text, oldVal, newWord, isAll = true) {
   return text.replace(new RegExp(oldVal, isAll ? "g" : ""), newWord);
 }
 //下载方法
-export function download(fliePath, fileName, isImg = false) {
-  if (isImg) {
-    let image = new Image();
-    image.setAttribute("crossOrigin", "anonymous");
-    image.src = fliePath;
-    image.onload = () => {
-      let canvas = document.createElement("canvas");
-      canvas.width = image.width;
-      canvas.height = image.height;
-      let ctx = canvas.getContext("2d");
-      ctx.drawImage(image, 0, 0, image.width, image.height);
-      // let jpeg = /(.+(?=[.jpeg]$))/
-      // let png = /(.+(?=[.png]$))/
-      // let gif = /(.+(?=[.gif]$))/
-      // let raw = /(.+(?=[.raw]$))/
-      // let jpg = /(.+(?=[.jpg]$))/
-      // let webp = /(.+(?=[.webp]$))/
-      // let bmp = /(.+(?=[.bmp]$))/
-      // let apng  = /(.+(?=[.apng ]$))/
-
-      canvas.toBlob((blob) => {
-        let href = URL.createObjectURL(blob);
-        let Link = document.createElement("a");
-        Link.download = fileName + ".png";
-        Link.href = href;
-        Link.click();
-        Link.remove();
-        // 用完释放URL对象
-        URL.revokeObjectURL(url);
-      });
-    };
-  } else {
-    const eleLink = document.createElement("a"); // 新建A标签
-    eleLink.href = fliePath; // 下载的路径
-    eleLink.target = "_blank";
-    eleLink.download = `${fileName}`; // 设置下载的属性，可以为空
-    eleLink.style.display = "none";
-    document.body.appendChild(eleLink);
-    eleLink.click(); // 触发点击事件
-    document.body.removeChild(eleLink);
-  }
+export function toUrl(url) {
+  const eleLink = document.createElement("a"); // 新建A标签
+  eleLink.href = url; // 下载的路径
+  eleLink.target = "_blank";
+  eleLink.style.display = "none";
+  document.body.appendChild(eleLink);
+  eleLink.click(); // 触发点击事件
+  document.body.removeChild(eleLink);
 }
 //一键复制到粘贴板
 export function copyInto(val) {
@@ -333,8 +300,8 @@ export function alertText(text, delay = 1500) {
     } catch (error) {}
   }, delay);
 }
-//生成随机码
-export function randomString(len, chars) {
+//生成随机码 //chars为字符库
+export function randomCode(len, chars) {
   len = len || 32;
   let $chars =
     chars ||
@@ -360,13 +327,13 @@ let my_utils = {
   throttle,
   fullScreen,
   replace,
-  download,
+  toUrl,
   copyInto,
   getTime,
   formatTime,
   clone,
   alertText,
-  randomString,
-  countOccurrences
+  randomCode,
+  countOccurrences,
 };
 export default my_utils;
