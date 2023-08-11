@@ -1,6 +1,7 @@
 <template>
   <div class="son">
     <h3>子组件</h3>
+    <input type="text" v-model="name" />
     <button @click="add">num+1</button>
     <div>num : {{ num }}</div>
   </div>
@@ -24,11 +25,11 @@ defineProps({
     required: true,
   },
 });
-const name = ref('静香')
+const name = ref("静香");
 const emit = defineEmits(["add"]);
 const add = utils.debounce(() => {
   emit("add");
 });
 
-defineExpose({name})
+defineExpose({ name });
 </script>

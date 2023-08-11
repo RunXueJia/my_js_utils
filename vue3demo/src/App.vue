@@ -5,7 +5,6 @@
       <br />
       <router-link to="/about">关于</router-link>
     </div>
-
     <router-view />
   </div>
 </template>

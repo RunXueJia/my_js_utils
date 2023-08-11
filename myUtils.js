@@ -74,7 +74,7 @@ export const debounce = (fn, delay = 500) => {
   };
 };
 //节流
-export const throttle = (fn, delay = 500,tipsText = "") => {
+export const throttle = (fn, delay = 500, tipsText = "") => {
   let flag = false;
   return function () {
     if (!flag) {
@@ -228,6 +228,27 @@ export function clone(val) {
   }
   return cloneUtil(val);
 }
+//将一个Sender对象中的所有属性 更新到receiver中
+export function deepMerge(receiver, Sender) {
+  function isObject(item) {
+    return item && typeof item === "object" && !Array.isArray(item);
+  }
+  function merge(receiver, Sender) {
+    let output = Object.assign({}, receiver);
+    if (isObject(receiver) && isObject(Sender)) {
+      Object.keys(Sender).forEach((key) => {
+        if (isObject(Sender[key])) {
+          if (!(key in receiver)) Object.assign(output, { [key]: Sender[key] });
+          else output[key] = merge(receiver[key], Sender[key]);
+        } else {
+          Object.assign(output, { [key]: Sender[key] });
+        }
+      });
+    }
+    return output;
+  }
+  return merge(receiver, Sender);
+}
 //黑色弱弹窗提醒
 export function alertText(text, delay = 1500) {
   const alertText = document.getElementsByClassName("alertText");
@@ -319,6 +340,7 @@ export function countOccurrences(str, subStr) {
   const matches = str.match(regex);
   return matches ? matches.length : 0;
 }
+
 let my_utils = {
   toTree,
   toOne,
@@ -332,6 +354,7 @@ let my_utils = {
   getTime,
   formatTime,
   clone,
+  deepMerge,
   alertText,
   randomCode,
   countOccurrences,

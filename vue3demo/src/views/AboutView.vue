@@ -1,9 +1,10 @@
 <template>
-    <div>
-        关于
-    </div>
+  <div class="about">
+    <h1>关于</h1>
+    <div>{{ aboutName }}</div>
+  </div>
 </template>
 <script setup>
-import { ref , reactive, toRefs , computed, onMounted} from 'vue';
-
+import { ref } from "vue";
+const aboutName = ref("nihao");
 </script>
