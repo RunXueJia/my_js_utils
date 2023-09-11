@@ -231,7 +231,10 @@ export function clone(val) {
 //将一个Sender对象中的所有属性 更新到receiver中
 export function deepMerge(receiver, Sender) {
   function isObject(item) {
-    return item && typeof item === "object" && !Array.isArray(item);
+    return (
+      item === null ||
+      (item && typeof item === "object" && !Array.isArray(item))
+    );
   }
   function merge(receiver, Sender) {
     let output = Object.assign({}, receiver);
