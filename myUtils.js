@@ -229,20 +229,20 @@ export function clone(val) {
   return cloneUtil(val);
 }
 //将一个Sender对象中的所有属性 更新到receiver中
-export function deepMerge(receiver, Sender) {
+function deepMerge(receiver, Sender) {
   function isObject(item) {
-    return (
-      item === null ||
-      (item && typeof item === "object" && !Array.isArray(item))
-    );
+    return item && typeof item === "object" && !Array.isArray(item);
   }
   function merge(receiver, Sender) {
     let output = Object.assign({}, receiver);
     if (isObject(receiver) && isObject(Sender)) {
       Object.keys(Sender).forEach((key) => {
         if (isObject(Sender[key])) {
-          if (!(key in receiver)) Object.assign(output, { [key]: Sender[key] });
-          else output[key] = merge(receiver[key], Sender[key]);
+          if (!(key in receiver) || receiver[key] === null) {
+            output[key] = deepMerge({}, Sender[key]);
+          } else {
+            output[key] = merge(receiver[key], Sender[key]);
+          }
         } else {
           Object.assign(output, { [key]: Sender[key] });
         }
