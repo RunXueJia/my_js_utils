@@ -229,7 +229,7 @@ export function clone(val) {
   return cloneUtil(val);
 }
 //将一个Sender对象中的所有属性 更新到receiver中
-function deepMerge(receiver, Sender) {
+export function deepMerge(receiver, Sender) {
   function isObject(item) {
     return item && typeof item === "object" && !Array.isArray(item);
   }
@@ -276,6 +276,7 @@ export function alertText(text, delay = 1500) {
       background:rgba(0,0,0,0.8);
       border-radius: 0.5em;
       color: #ffff;
+      pointer-events: none;
   `;
   div.animate(
     [
@@ -343,7 +344,10 @@ export function countOccurrences(str, subStr) {
   const matches = str.match(regex);
   return matches ? matches.length : 0;
 }
-
+//数组中随机取一个元素
+export function randomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
 let my_utils = {
   toTree,
   toOne,
@@ -361,5 +365,6 @@ let my_utils = {
   alertText,
   randomCode,
   countOccurrences,
+  randomElement,
 };
 export default my_utils;
