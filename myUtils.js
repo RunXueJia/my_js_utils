@@ -151,7 +151,7 @@ export function copyInto(val) {
 //时间
 export function getTime(val) {
   function bu0(val) {
-    return val * 1 < 10 ? "0" + val : val.toString();
+    return val * 1 < 10 ? `0${val}` : val.toString();
   }
   function getWeekDay(val) {
     week = [
@@ -188,19 +188,20 @@ export function getTime(val) {
   };
 }
 //毫秒数转换成 时分秒
-export function formatTime(milliseconds, zero = false) {
+export function formatTime(milliseconds, zero = true) {
   function bu0(n) {
-    return n < 10 ? "0" + n : n;
+    return n < 10 && zero ? `0${n}` : n;
   }
   let seconds = Math.floor(milliseconds / 1000);
   let minutes = Math.floor(seconds / 60);
   let hours = Math.floor(minutes / 60);
   let days = Math.floor(hours / 24);
   let time = {
-    days: zero ? bu0(days) : days,
-    hours: zero ? bu0(hours % 24) : hours % 24,
-    minutes: zero ? bu0(minutes % 60) : minutes % 60,
-    seconds: zero ? bu0(seconds % 60) : seconds % 60,
+    days: bu0(days),
+    hours: bu0(hours % 24),
+    minutes: bu0(minutes % 60),
+    seconds: bu0(seconds % 60),
+    milliseconds: milliseconds % 1000,
   };
   return time;
 }

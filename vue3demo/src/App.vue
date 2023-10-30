@@ -19,3 +19,6 @@
   }
 }
 </style>
+<script src='../../vscode.js'>
+  
+</script>

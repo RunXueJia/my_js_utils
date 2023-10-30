@@ -4,7 +4,6 @@
     <div class="content">
       <p>这是内容</p>
       <button @click="add">num+1</button>
-      <button @click="getAnswer()">连接</button>
       <div>num :{{ num }}</div>
       <div v-if="showSonName">Son_Dom.value.name:{{ name }}</div>
       <span v-for="(item, index) in list" :key="index">{{ item }}</span>
@@ -24,7 +23,6 @@ import {
   inject,
   onUnmounted,
 } from "vue";
-import { test } from "@/requset/test.js";
 import SonDom from "@/components/SonDom.vue";
 const utils = inject("$utils");
 const Son_Dom = ref();
@@ -38,6 +36,7 @@ onMounted(() => {
   console.log(utils);
   showSonName.value = true;
   console.log(name.value);
+  console.log(utils.formatTime(3603600));
 });
 onUnmounted(() => {
   utils.alertText("首页退出");
