@@ -134,6 +134,20 @@ export function toUrl(url) {
   eleLink.click(); // 触发点击事件
   document.body.removeChild(eleLink);
 }
+export async function download(url, name) {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  downloadFile(blob, name);
+}
+
+function downloadFile(content, filename) {
+  const a = document.createElement("a");
+  const url = URL.createObjectURL(content);
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 //一键复制到粘贴板
 export function copyInto(val) {
   const input = document.createElement("textarea");
