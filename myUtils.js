@@ -137,7 +137,7 @@ export function toUrl(url) {
 export async function download(url, name) {
   const response = await fetch(url);
   const blob = await response.blob();
-  downloadFile(blob, name);
+  downloadFile(blob, name || url);
 }
 
 function downloadFile(content, filename) {
@@ -226,17 +226,28 @@ export function clone(val) {
   }
   function cloneUtil(target) {
     let result;
-    if (getType(target) === "Object") {
+    let type = getType(target);
+    if (type === "Object") {
       result = {};
-    } else if (getType(target) === "Array") {
+    } else if (type === "Array") {
       result = [];
-    } else result = target;
-    for (let i in target) {
-      let item = target[i];
-      if (getType(item) === "Object" || getType(item) === "Array") {
-        result[i] = cloneUtil(item);
-      } else {
-        result[i] = item;
+    } else if (type === "Date") {
+      result = new Date(target.getTime());
+    } else if (type === "RegExp") {
+      result = new RegExp(target);
+    } else if (type === "String") {
+      result = target.slice();
+    } else {
+      result = target;
+    }
+    if (type === "Object" || type === "Array") {
+      for (let i in target) {
+        let item = target[i];
+        if (getType(item) === "Object" || getType(item) === "Array") {
+          result[i] = cloneUtil(item);
+        } else {
+          result[i] = item;
+        }
       }
     }
     return result;
