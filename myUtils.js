@@ -6,10 +6,10 @@ export function toTree(
   pidKey = "pid",
   childKey = "children"
 ) {
-  let root = arr.find((item) => item[idKey] == pid);
+  let root = arr.find(item => item[idKey] == pid);
   let newArr = [];
-  arr.forEach((item) => {
-    let parent = arr.find((i) => i[idKey] == item[pidKey]);
+  arr.forEach(item => {
+    let parent = arr.find(i => i[idKey] == item[pidKey]);
     if (parent) {
       parent[childKey]
         ? parent[childKey].push(item)
@@ -34,7 +34,7 @@ export const toOne = (
   const arr2 = [];
   let arr = null;
   val instanceof Array ? (arr = val) : (arr = [val]);
-  arr.forEach((item) => {
+  arr.forEach(item => {
     if (item[childrenKey]) {
       arr2.push(...toOne(item[childrenKey], childrenKey, idKey, saveChild));
     }
@@ -50,7 +50,7 @@ export const toOne = (
 //用于数组去重 (若为元素为对象需要传入唯一值的key)
 export function noRepeat(arr, key = false) {
   let obj = {};
-  let newarr = arr.reduce(function (sum, current) {
+  let newarr = arr.reduce(function(sum, current) {
     if (!key) {
       obj[current] ? "" : (obj[current] = true && sum.push(current));
     } else {
@@ -63,11 +63,11 @@ export function noRepeat(arr, key = false) {
 //防抖
 export const debounce = (fn, delay = 500) => {
   let timer = null;
-  return function () {
+  return function() {
     let _this = this;
     let _arguments = arguments;
     clearTimeout(timer);
-    timer = setTimeout(function () {
+    timer = setTimeout(function() {
       // console.log('执行器触发')
       fn.apply(_this, _arguments);
     }, delay);
@@ -76,7 +76,7 @@ export const debounce = (fn, delay = 500) => {
 //节流
 export const throttle = (fn, delay = 500, tipsText = "") => {
   let flag = false;
-  return function () {
+  return function() {
     if (!flag) {
       let _this = this;
       let _arguments = arguments;
@@ -94,7 +94,7 @@ export const throttle = (fn, delay = 500, tipsText = "") => {
 };
 //指定元素全屏 //参数为标签
 export const fullScreen = {
-  full: (el) => {
+  full: el => {
     let fullFn =
       el.requestFullscreen ||
       el.webkitRequestFullscreen ||
@@ -118,7 +118,7 @@ export const fullScreen = {
       let ws = new ActiveXObject("WScript.Shell");
       ws && ws.SendKeys("{F11}");
     }
-  },
+  }
 };
 //替换字符串
 export function replace(text, oldVal, newWord, isAll = true) {
@@ -139,13 +139,32 @@ export async function download(url, name) {
   const blob = await response.blob();
   downloadFile(blob, name || url);
 }
-
-function downloadFile(content, filename) {
+// import * as dd from "dingtalk-jsapi"; // 此方式为整体加载，也可按需进行加载
+// // 方法3
+// export function isDingTalk() {
+//   const ua = window.navigator.userAgent;
+//   return ua.includes("DingTalk"); // true or false
+// }
+export function downloadFile(content, filename) {
   const a = document.createElement("a");
   const url = URL.createObjectURL(content);
-  a.href = url;
-  a.download = filename;
-  a.click();
+  // if (isDingTalk()) {
+  //   dd.biz.util.downloadFile({
+  //     url: url, //要下载的文件的url
+  //     name: filename, //定义下载文件名字
+  //     onProgress: function(msg) {
+  //       // 文件下载进度回调
+  //     },
+  //     onSuccess: function(result) {
+  //       URL.revokeObjectURL(url);
+  //     },
+  //     onFail: function() {}
+  //   });
+  // } else {
+    a.href = url;
+    a.download = filename;
+    a.click();
+  // }
   URL.revokeObjectURL(url);
 }
 //一键复制到粘贴板
@@ -175,9 +194,9 @@ export function getTime(val) {
       { label: 4, value: "四" },
       { label: 5, value: "五" },
       { label: 6, value: "六" },
-      { label: 0, value: "日" },
+      { label: 0, value: "日" }
     ];
-    return week.find((item) => item.label == val).value;
+    return week.find(item => item.label == val).value;
   }
   let now = val ? new Date(val) : new Date();
   let year = now.getFullYear().toString(); //得到年份
@@ -192,30 +211,37 @@ export function getTime(val) {
     month,
     day,
     week,
-    weekCn: getWeekDay(week),
+    // weekCn: getWeekDay(week),
     hour,
     hour12: hour > 12 ? bu0(hour - 12) : hour,
     AP: hour >= 12 ? "PM" : "AM",
     APCN: hour >= 12 ? "下午" : "上午",
     minute,
-    second,
+    second
   };
 }
 //毫秒数转换成 时分秒
-export function formatTime(milliseconds, zero = true) {
+export function formatTime(milliseconds, floor = true, key) {
   function bu0(n) {
-    return n < 10 && zero ? `0${n}` : n;
+    return n < 10 ? "0" + n : n;
   }
-  let seconds = Math.floor(milliseconds / 1000);
+  let seconds = floor ? Math.floor(milliseconds / 1000) : milliseconds / 1000;
   let minutes = Math.floor(seconds / 60);
+  if (key == "minutes") {
+    minutes = (seconds / 60).toFixed(2);
+  }
   let hours = Math.floor(minutes / 60);
   let days = Math.floor(hours / 24);
   let time = {
     days: bu0(days),
     hours: bu0(hours % 24),
     minutes: bu0(minutes % 60),
+    allminutes: minutes,
     seconds: bu0(seconds % 60),
-    milliseconds: milliseconds % 1000,
+    allseconds: seconds,
+    formatTime: `${days ? days + "天 " : ""}${bu0(hours % 24)}:${bu0(
+      minutes % 60
+    )}:${bu0((seconds % 60).toFixed(2))}`
   };
   return time;
 }
@@ -262,7 +288,7 @@ export function deepMerge(receiver, Sender) {
   function merge(receiver, Sender) {
     let output = Object.assign({}, receiver);
     if (isObject(receiver) && isObject(Sender)) {
-      Object.keys(Sender).forEach((key) => {
+      Object.keys(Sender).forEach(key => {
         if (isObject(Sender[key])) {
           if (!(key in receiver) || receiver[key] === null) {
             output[key] = deepMerge({}, Sender[key]);
@@ -282,7 +308,7 @@ export function deepMerge(receiver, Sender) {
 export function alertText(text, delay = 1500) {
   const alertText = document.getElementsByClassName("alertText");
   if (alertText.length)
-    [...alertText].forEach((i) => document.body.removeChild(i));
+    [...alertText].forEach(i => document.body.removeChild(i));
   let html = `
         <span>${text}</span>
         `;
@@ -308,32 +334,32 @@ export function alertText(text, delay = 1500) {
     [
       {
         transform: "translate(-50%,-70%)",
-        opacity: 1,
+        opacity: 1
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9,
+        opacity: 0.9
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.9,
+        opacity: 0.9
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.8,
+        opacity: 0.8
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.7,
+        opacity: 0.7
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.6,
+        opacity: 0.6
       },
       {
         transform: "translate(-50%,-50%)",
-        opacity: 0.5,
-      },
+        opacity: 0.5
+      }
     ],
     {
       duration: 1500,
@@ -341,7 +367,7 @@ export function alertText(text, delay = 1500) {
       delay: 0,
       iterations: "1",
       direction: "alternate",
-      fill: "forwards",
+      fill: "forwards"
     }
   );
   document.body.appendChild(div);
@@ -364,6 +390,7 @@ export function randomCode(len, chars) {
   }
   return pwd;
 }
+export let randomString = randomCode;
 //检测一段字符串中指定字符出现次数
 export function countOccurrences(str, subStr) {
   const regex = new RegExp(subStr, "g");
@@ -390,7 +417,10 @@ let my_utils = {
   deepMerge,
   alertText,
   randomCode,
+  randomString,
   countOccurrences,
   randomElement,
+  download,
+  downloadFile
 };
 export default my_utils;
